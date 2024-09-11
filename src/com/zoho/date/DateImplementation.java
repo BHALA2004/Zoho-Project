@@ -72,9 +72,46 @@ public class DateImplementation {
     }
 
 
-    public String  getDay(DateModel dateModel){
+    public void generateFullMonthCalendar(DateModel dateModel) {
+        int month = dateModel.getMonth();
+        int year = dateModel.getYear();
+        int lastDayOfMonth = lastDayOfMonth(1, month, year);
+
+        // Set the date to the 1st of the month to get the day of the week
+        dateModel.setDate(1);
+        int startDay = getDay(dateModel); // Index for the 1st of the month
+
+        // Array for days of the week
+        String[] daysOfWeek = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+
+        // Print the calendar header
+        System.out.println(String.join(" ", daysOfWeek));
+
+        // Print spaces for days before the 1st
+        for (int i = 0; i < startDay; i++) {
+            System.out.print("    "); // 4 spaces for each empty day before the 1st
+        }
+
+        // Print all the days of the month
+        int dayIndex = startDay;
+        for (int i = 1; i <= lastDayOfMonth; i++) {
+            System.out.printf("%-4d", i); // Print each day with 4-space formatting
+            dayIndex++;
+            if (dayIndex == 7) {
+                dayIndex = 0;  // Reset the index for a new week
+                System.out.println();  // New line for the next week
+            }
+        }
+        System.out.println();  // Print a new line at the end of the calendar
+    }
+
+
+
+
+    public int  getDay(DateModel dateModel){
         int Day = 0;
         int dateValue = dateModel.getDate();
+
         int monthValue = monthChart(dateModel.getMonth());
         int centuryValue = centuryChart(dateModel.getYear());
         String yearmodify = String.valueOf(dateModel.getYear());
@@ -83,18 +120,70 @@ public class DateImplementation {
         int yearQuotientValue = yearValue/4;
         Day+=dateValue+monthValue+centuryValue+yearValue+yearQuotientValue;
         int gettingDay = Day%7;
-        if(dateModel.getYear()%4==0 && (dateModel.getMonth()==1 || dateModel.getMonth()==2)){
-            gettingDay-=1;
-            if(gettingDay==-1){
-                return "Saturday";
+        if (isLeapyear(dateModel.getYear()) && (dateModel.getMonth() == 1 || dateModel.getMonth() == 2)) {
+            gettingDay--;
+            if (gettingDay == -1) {
+                gettingDay = 6;  // Wrap around to Saturday
+            }
+        }
+        return gettingDay;
+
+    }
+
+    public boolean isLeapyear(int year){
+        if(year%4==0 && year%100!=0 || year%400==0){
+            return true;
+        }
+        return false;
+    }
+
+    public int lastDayOfMonth(int day,int month,int year){
+        if(month==1){
+            return 31;
+        } else if (month==2) {
+            if(isLeapyear(year)){
+                return 29;
             }
             else {
-                return weekChart(gettingDay);
+                return 28;
             }
+
+        } else if (month==3) {
+            return 31;
+
+        }
+        else if (month==4) {
+            return 30;
+
+        }
+        else if (month==5) {
+            return 31;
+
+        }
+        else if (month==6) {
+            return 30;
+
+        }
+        else if (month==7) {
+            return 31;
+
+        }
+        else if (month==8) {
+            return 31;
+            }
+        else if (month==9) {
+            return 30;
+        }
+        else if (month==10) {
+            return 31;
+        }
+        else if (month==11) {
+            return 30;
         }
         else {
-            return weekChart(gettingDay);
+            return 31;
         }
+
 
     }
 
