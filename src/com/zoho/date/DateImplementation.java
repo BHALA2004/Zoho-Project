@@ -77,32 +77,32 @@ public class DateImplementation {
         int year = dateModel.getYear();
         int lastDayOfMonth = lastDayOfMonth(1, month, year);
 
-        // Set the date to the 1st of the month to get the day of the week
-        dateModel.setDate(1);
-        int startDay = getDay(dateModel); // Index for the 1st of the month
 
-        // Array for days of the week
+        dateModel.setDate(1);
+        int startDay = getDay(dateModel);
+
+
         String[] daysOfWeek = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 
-        // Print the calendar header
+
         System.out.println(String.join(" ", daysOfWeek));
 
-        // Print spaces for days before the 1st
+
         for (int i = 0; i < startDay; i++) {
-            System.out.print("    "); // 4 spaces for each empty day before the 1st
+            System.out.print("    ");
         }
 
-        // Print all the days of the month
+
         int dayIndex = startDay;
         for (int i = 1; i <= lastDayOfMonth; i++) {
-            System.out.printf("%-4d", i); // Print each day with 4-space formatting
+            System.out.printf("%-4d", i);
             dayIndex++;
             if (dayIndex == 7) {
-                dayIndex = 0;  // Reset the index for a new week
-                System.out.println();  // New line for the next week
+                dayIndex = 0;
+                System.out.println();
             }
         }
-        System.out.println();  // Print a new line at the end of the calendar
+        System.out.println();
     }
 
 
@@ -123,7 +123,7 @@ public class DateImplementation {
         if (isLeapyear(dateModel.getYear()) && (dateModel.getMonth() == 1 || dateModel.getMonth() == 2)) {
             gettingDay--;
             if (gettingDay == -1) {
-                gettingDay = 6;  // Wrap around to Saturday
+                gettingDay = 6;
             }
         }
         return gettingDay;
