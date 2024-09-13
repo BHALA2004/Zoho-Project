@@ -24,6 +24,7 @@ public class PuzzleImplementation {
         int temporaryValue =arr[oldrow][oldcol];
         arr[oldrow][oldcol]=arr[newrow][newcol];
         arr[newrow][newcol]= temporaryValue;
+        printValue(arr);
     }
 
     public static int[][] generateRandomPuzzle() {
@@ -41,11 +42,11 @@ public class PuzzleImplementation {
         }
         return arr;
     }
-    public static int[] searchValueOfSpace(int x, int[][] arr){
+    public static int[] searchValueOfSpace(int searchValue, int[][] array){
         int[] newarr = new int[2];
-        for(int i = 0;i<arr.length;i++){
-            for(int j=0;j< arr.length;j++){
-                if(x==arr[i][j]){
+        for(int i = 0; i< array.length; i++){
+            for(int j = 0; j< array.length; j++){
+                if(searchValue == array[i][j]){
                     newarr[0]=i;
                     newarr[1]=j;break;
                 }
@@ -53,4 +54,37 @@ public class PuzzleImplementation {
         }
         return newarr;
     }
+
+    public static ArrayList<String> findMovesPossiblities(int row,int column,int length){
+       ArrayList<String> list = new ArrayList<>();
+        if(row-1!=-1){
+            list.add("Up");
+        }
+        if(row+1!=length){
+            list.add("Down");
+        }
+        if(column-1!=-1){
+            list.add("Left");
+        }
+        if(column+1!=length){
+            list.add("Right");
+        }
+        return list;
+    }
+
+    public static void callUp(int[][] array,int row,int column){
+        swap(array,row,column,row-1,column);
+    }
+    public static void CallDown(int[][] array,int row,int column){
+        swap(array,row,column,row+1,column);
+    }
+
+    public static void CallRight(int[][] array,int row,int column){
+        swap(array,row,column,row,column+1);
+    }
+    public static void callLeft(int[][] array,int row,int column){
+        swap(array,row,column,row,column-1);
+    }
+
+
 }
