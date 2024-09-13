@@ -7,7 +7,7 @@ import static com.zoho.puzzlegame.PuzzleImplementation.*;
 public class PuzzleMain {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int[][] array = generateRandomPuzzle();
+        int[][] array =  generateRandomPuzzle();
         printValue(array);
 
         int[][] originalArray = {{1, 2, 3,4}, {5,6,7,8}, {9,10,11,12},{13,14,15,0}};
