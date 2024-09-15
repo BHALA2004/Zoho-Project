@@ -33,21 +33,29 @@ public class DateImplementation {
         return monthChartValue;
     }
 
+    public int findYearValue(int year){
+        int yearValue = 0;
+        if(year>=0 && year<=99){
+            yearValue =  2;
+        } else if (year>=100 && year<=199) {
+            yearValue=0;
+
+        } else if (year>=200 && year<=299) {
+            yearValue= 6;
+        }
+        else if(year>=300 && year<=399){
+            yearValue =  4;
+        }
+        return yearValue;
+    }
+
     public int centuryChart(int year){
-        int centuaryChartValue = 0;
-        if(year>=1400 && year<=1499 || year>=1800 && year<=1899 || year>=2200 && year<=2299){
-            centuaryChartValue=2;
+        year-=1400;
+        while (year>0){
+            year-=400;
         }
-        else if(year>=1500 && year<=1599 || year>=1900 && year<=1999 || year>=2300 && year<=2399){
-            centuaryChartValue=0;
-        }
-        else if(year>=1600 && year<=1699 || year>=2000 && year<=2099 || year>=2400 && year<=2499){
-            centuaryChartValue=6;
-        }
-        else if(year>=1700 && year<=1799 || year>=2100 && year<=2199 || year>=2500 && year<=2599){
-            centuaryChartValue=4;
-        }
-        return centuaryChartValue;
+        year+=400;
+        return findYearValue(year);
     }
 
     public String weekChart(int date){
