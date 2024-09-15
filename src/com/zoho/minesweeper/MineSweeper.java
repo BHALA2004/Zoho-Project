@@ -1,6 +1,7 @@
 package com.zoho.minesweeper;
 
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MineSweeper {
@@ -21,6 +22,7 @@ public class MineSweeper {
         MineSweeperImplementation.start(currentBoard,FullBoard,bombCount);
         MineSweeperImplementation.print(currentBoard);
         while (!Arrays.deepEquals(currentBoard,FullBoard)){
+            try {
             System.out.println("Enter the Grid Row Value from 1 to " + String.valueOf(rows) +":");
             int rowValue = scanner.nextInt();
             rowValue-=1;
@@ -36,16 +38,23 @@ public class MineSweeper {
                     MineSweeperImplementation.revealMultipleTiles(rowValue, columnValue, currentBoard, FullBoard, visited);
                     MineSweeperImplementation.print(currentBoard);
                 }
+                if(MineSweeperImplementation.checkWon(currentBoard,bombCount)){
+                    System.out.println("You Won The Match");
+                    MineSweeperImplementation.print(FullBoard);
+                    break;
+                }
+
             } else {
                 System.out.println("Already This Tile is Visited");
+            }}
+            catch (Exception e){
+                System.out.println("Invalid input");
             }
 
 
 
         }
-        if(Arrays.deepEquals(currentBoard,FullBoard)){
-            System.out.println("You Won");
-        }
+
 
     }
 }

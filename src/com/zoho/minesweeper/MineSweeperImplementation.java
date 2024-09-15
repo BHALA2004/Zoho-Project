@@ -33,6 +33,18 @@ public class MineSweeperImplementation {
         revealMultipleTiles(row + 1, col + 1, currentBoard, FullBoard, visited); // Down-Right
     }
 
+    public static boolean checkWon(int[][] currentBoard,int bombcount){
+        int count=0;
+        for(int i = 0;i<currentBoard.length;i++){
+            for(int j=0;j<currentBoard[0].length;j++){
+                if(currentBoard[i][j]==45){
+                    count++;
+                }
+            }
+        }
+        return count==bombcount?true:false;
+    }
+
 
     public static void print(int[][] board){
         for(int i = 0;i<board.length;i++){
